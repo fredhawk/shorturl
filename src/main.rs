@@ -12,6 +12,8 @@ fn main() -> std::io::Result<()> {
 
     // Pull out the long url
     let _long = &args.long_url;
+    let entry: String = "\n".to_owned() + _long;
+    println!("{}", entry);
 
     // Check if file exists
     let mut file_exists:bool = false;
@@ -19,15 +21,14 @@ fn main() -> std::io::Result<()> {
     if file_exists == true {
         // If it exists open it and append whatever is in the _long reference
         let mut f = File::options().append(true).open("_redirects")?;
-        f.write(_long.as_bytes());
+        f.write(entry.as_bytes());
     } else {
         // If it doesnt exist. Create the file and write the _long reference to it.
         let mut f = File::create("_redirects")?;
-        f.write(_long.as_bytes());
+        f.write(entry.as_bytes());
     }
 
     //TODO 1. add both variables to the file
-    //TODO 2. add a new line first before the strings
     //TODO 3. add spacing between the strings
     //TODO 4. Make a program that encodes strings
     //TODO 5. Check if the program gets 1 or 2 args. If only one then create an encoded string
