@@ -12,7 +12,12 @@ fn main() -> std::io::Result<()> {
 
     // Pull out the long url
     let _long = &args.long_url;
-    let entry: String = "\n".to_owned() + _long;
+
+    // Pull out the short url
+    let _short = &args.short_url;
+
+    // Make the entry from the strings
+    let entry: String = "\n".to_owned() + _long + " " + _short;
     println!("{}", entry);
 
     // Check if file exists
@@ -28,8 +33,6 @@ fn main() -> std::io::Result<()> {
         f.write(entry.as_bytes());
     }
 
-    //TODO 1. add both variables to the file
-    //TODO 3. add spacing between the strings
     //TODO 4. Make a program that encodes strings
     //TODO 5. Check if the program gets 1 or 2 args. If only one then create an encoded string
     // and use that as second argument when writing to file.
