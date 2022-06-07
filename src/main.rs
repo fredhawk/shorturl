@@ -5,7 +5,7 @@ use clap::Parser;
 use std::fs::File;
 use std::path::Path;
 use std::io::Write;
-
+use is_url::is_url;
 
 fn main() -> std::io::Result<()> {
     let args: AlliumArgs = AlliumArgs::parse();
@@ -16,8 +16,12 @@ fn main() -> std::io::Result<()> {
     // Pull out the short url
     let _short = &args.short_url;
 
+    // Check so that the long is a url
+    let valid_url = is_url(_long);
+    println!("{}", valid_url);
+
     // Make the entry from the strings
-    let entry: String = "\n".to_owned() + _long + " " + _short;
+    let entry: String = "\n".to_owned() + _short + " " + _long;
     println!("{}", entry);
 
     // Check if file exists
@@ -33,10 +37,5 @@ fn main() -> std::io::Result<()> {
         f.write(entry.as_bytes());
     }
 
-    //TODO 4. Make a program that encodes strings
-    //TODO 5. Check if the program gets 1 or 2 args. If only one then create an encoded string
-    // and use that as second argument when writing to file.
-
-    // println!("{}", long);
     Ok(())
 }
