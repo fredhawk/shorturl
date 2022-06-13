@@ -25,8 +25,7 @@ fn main() -> std::io::Result<()> {
     println!("{}", entry);
 
     // Check if file exists
-    let mut file_exists:bool = false;
-    file_exists = Path::new("_redirects").exists();
+    let file_exists = Path::new("_redirects").exists();
     if file_exists == true {
         // If it exists open it and append whatever is in the _long reference
         let mut f = File::options().append(true).open("_redirects")?;
@@ -38,4 +37,18 @@ fn main() -> std::io::Result<()> {
     }
 
     Ok(())
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_url() {
+        let url = "https://example.com";
+        let false_url = "nourl";
+
+        assert_eq!(is_url(url), true);
+        assert_eq!(is_url(false_url), false);
+    }
 }
