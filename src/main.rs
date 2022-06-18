@@ -14,7 +14,7 @@ fn main() -> std::io::Result<()> {
     let _long = &args.long_url;
 
     // Pull out the short url
-    let _short = &args.short_url;
+    let _short = &args.short_url.unwrap_or_default();
 
     // Check so that the long is a url
     let valid_url = is_url(_long);
