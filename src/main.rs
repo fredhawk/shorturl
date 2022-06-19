@@ -1,6 +1,8 @@
 mod args;
+mod lib;
 
 use args::AlliumArgs;
+use lib::rand_str;
 use clap::Parser;
 use std::fs::File;
 use std::path::Path;
