@@ -16,14 +16,15 @@ fn main() -> std::io::Result<()> {
     let _long = &args.long_url;
 
     // Pull out the short url
-    let _short = &args.short_url.unwrap_or_default();
+    // If _short is nothing then call rand_str to create a random short url.
+    let _short = &args.short_url.unwrap_or(rand_str());
 
     // Check so that the long is a url
     let valid_url = is_url(_long);
     println!("{}", valid_url);
 
     // Make the entry from the strings
-    let entry: String = "\n".to_owned() + _short + " " + _long;
+    let entry: String = "\n".to_owned() + "/" + _short + " " + "/" + _long;
     println!("{}", entry);
 
     // Check if file exists
@@ -31,11 +32,11 @@ fn main() -> std::io::Result<()> {
     if file_exists == true {
         // If it exists open it and append whatever is in the _long reference
         let mut f = File::options().append(true).open("_redirects")?;
-        f.write(entry.as_bytes());
+        f.write(entry.as_bytes())?;
     } else {
         // If it doesnt exist. Create the file and write the _long reference to it.
         let mut f = File::create("_redirects")?;
-        f.write(entry.as_bytes());
+        f.write(entry.as_bytes())?;
     }
 
     Ok(())
